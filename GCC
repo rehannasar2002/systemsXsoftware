@@ -1,0 +1,16 @@
+Hello there!
+
+This file will be all my learnings that I have gathered over the years for GCC GNU. Hope you enjoy it!
+
+Introduction:
+
+Let's execute a simple c file called hello.c 
+
+Code:
+#include <stdio.h>
+
+int main()
+{
+	printf("Hello world!");
+	return 0;
+}
