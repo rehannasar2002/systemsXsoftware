@@ -3,5 +3,6 @@ This repository serves as a compilation of all theory that I have learnt as part
 
 Acknowledgements:
 
-Shivam Rawat (GPU Engineer, Qualcomm)
+Shivam Rawat (GPU Engineer, Qualcomm) 
+
 Link: https://github.com/Rawat-Shivam
