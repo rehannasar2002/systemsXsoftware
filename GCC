@@ -1,12 +1,14 @@
 Hello there!
-
 This file will be all my learnings that I have gathered over the years for GCC GNU. Hope you enjoy it!
+Note: While you compile code, deliberately give errors - to see how the compiler behaves, what it throws at you. 
+Go to the extent of knowing what happens line by line. 
+Remeber, you can be asked anything and everything!
 
-Introduction:
+1. Introduction:
 
 Let's execute a simple c file called hello.c 
-
 Code:
+............................
 #include <stdio.h>
 
 int main()
@@ -14,3 +16,100 @@ int main()
 	printf("Hello world!");
 	return 0;
 }
+............................
+
+We use the following cmd to have this compiled. Note, open cmd in the same directory as hello.c
+$ gcc -Wall hello.c -o hello
+
+What this does is, it compiles the source code to machine code and then stores it in an executable file called hello
+So machine code is specified by -o, which is usually given at the end of the cmd (last arg)
+If you don't mention it, default it will be a.exe ($ gcc -Wall hello.c)
+
+-Wall usually would turn all the compiler warnings, so use it all the time.
+Don't believe me, see why :)
+
+Say this is what you write in your C program:
+...........................
+#include <stdio.h>
+
+int main()
+{
+	int x;
+	printf("Hello world!%d",x);
+	return 0;
+}
+..........................
+
+Here, x is used/declared, but not initialised. So if you use -Wall, you'd get this:
+-------------------------
+hello.c:6:9: warning: 'x' is used uninitialized [-Wuninitialized]
+    6 |         printf("Hello world!%d",x);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+hello.c:5:13: note: 'x' was declared here
+    5 |         int x;
+      |             ^
+-------------------------
+The warning may most likely be due to garbage value stored in x
+
+When you type .\hello or just hello, that'll load the .exe file to memory and would cause the CPU to begin executing instructions in that exe file.
+The path .\ refers to current directory.
+
+Let's look at another example:
+
+.........................
+#include <stdio.h>
+
+int main()
+{
+	printf("Two plus two equals: %f\n", 4);
+	return 0;
+}
+.........................
+
+Here, when you add -Wall, you get this:
+
+--------------------------
+hello.c: In function 'main':
+hello.c:5:39: warning: format '%f' expects argument of type 'double', but argument 2 has type 'int' [-Wformat=]
+    5 |         printf("Two plus two equals: %f\n", 4);
+      |                                      ~^     ~
+      |                                       |     |
+      |                                       |     int
+      |                                       double
+      |                                      %d
+--------------------------
+Here, everything looks good, except that the arg 1 is float/double, but arg 2 is int. 
+The format string is used incorrectly. 
+Also, notice the way how the error is mentioned:
+file:line-number:message -> hello.c:5:39
+Also complier will distinguish b/w error msg - this prevents successful compilation; and warning msg - indicates possible errors but wont stop prog from compiling
+
+Say if you didn't use -Wall, what happens then? Let's see
+....................................
+C:\Users\rnasar\Desktop\code\c>hello
+Two plus two equals: 0.000000
+....................................
+
+Here, the format specifier is incorrect, that corrupts the output since the func printf is passed as int instead of float. 
+Int and float are stored in different formats in memory and occupy different bytes - this ofc depends on platform and env.
+What do I mean by platform and env?
+
+1. Different systems may use different endianess - so a misinterpreted int as float may result in different byte order
+2. Some archs pass func arg as reg (x86-64 uses system V ABI) while others use stack (old x86 32 bit systems) - so behavior may depend whether int is stored in float reg or not.
+3. Size of datatype could also vary, in 32 bit both int and float are 4 bytes, but in 64 bit float is 8 - now printf can promote float to double, but can't do int to double so interpetation can go wrong
+4. 
+
+Well if you don't use the func correctly, the system may produce incorrect results, or may even crash. So be careful!
+
+2. Compiling multiple source files.
+
+
+
+
+
+
+
+
+
+
+
