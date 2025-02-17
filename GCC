@@ -1,5 +1,8 @@
 Hello there!
-This file will be all my learnings that I have gathered over the years for GCC GNU. Hope you enjoy it!
+This file will be all my learnings that I have gathered over the years for GCC GNU.
+My main source of motivation for doing this came from this book: An Introduction to GCC by Brian J. Gough.
+Hope you enjoy it!
+
 Note: While you compile code, deliberately give errors - to see how the compiler behaves, what it throws at you. 
 Go to the extent of knowing what happens line by line. 
 Remeber, you can be asked anything and everything!
