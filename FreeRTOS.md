@@ -1,0 +1,4 @@
+Hi there!
+This will be all my compilation and learnings from the FreeRTOS manual from Richard Barry from AWS V 1.1.0
+Hope you enjoy the read!
+
