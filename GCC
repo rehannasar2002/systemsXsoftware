@@ -108,7 +108,7 @@ Well if you don't use the func correctly, the system may produce incorrect resul
 
 I'll split my file into three files: hello.c, hello_func.c, and hello.j
 
-...........................
+------------------------------
 //This is hello.c
 #include "hello.h"
 
@@ -117,11 +117,11 @@ int main()
 	hello("world");
 	return 0;
 }
-...........................
+------------------------------
 //This is hello.h
 
 void hello(const char * name);
-...........................
+------------------------------
 //This is hello_func.C
 
 #include <stdio.h>
@@ -131,7 +131,7 @@ void hello(const char * name)
 {
 	printf("Hello, %s!", name);
 }
-...........................
+------------------------------
 
 Compile all these using: 
 $ gcc -Wall hello.c hello_func.c -o newhello
@@ -147,6 +147,85 @@ Why don't I include hello.h in the cmd line?
 The directive #include "hello.h" in the src file instructs the compiler to include it automatically at approporiate locations
 
 2.1 Compiling files independently
+This is the best way to avoid running everything over and over again.
+Say if your entire program was in a single file, then you'd have to recompile that program if you slightly even changed something.
+So the best option is to split the program to independent source files.
+
+In here, the src files are complied seperately, then linked together - 2 stage
+1st stage - compile all src files seperately without creating an exe. This is called object file (-o)
+2nd stage - object files are merged together by a seperate program caled linker. Linker combines all obj files together to create a single exe.
+
+Obj file contains machine code where any reference to mem add of func (or variable) in other files is undefined. 
+That allows src files to be compiled without direct reference to each other
+So what happens is that it leaves placeholders (undefined references) for missing addresses. 
+Linker does the job of filling these missing addresses when it produces the executable
+
+Ex: Say you have three files, main.c, math_func.c and math_func.h
+
+------------------------------
+//This is math_func.c
+#include "math_func.h"
+
+int add(int a, int b)
+{
+	return a+b;
+}
+------------------------------
+//This is math_func.h
+#ifndef MATH_FUNC.H
+#define MATH_FUNC.H
+
+int add(int a, int b);
+
+#endif 
+------------------------------
+//This is the main.c
+#include <stdio.h>
+#include "math_func.h"
+
+int main()
+{
+	int result = add(5,3);
+	printf("Result: %d",result);
+	return 0;
+}
+------------------------------
+
+Now if you have to compile them, we do it in this way
+$ gcc -Wall -c main.c //This create the object file without -o mention
+OR
+$gcc -c main.c -o main.o //This creates it with -o mention
+
+This is because of the -c flag, which automatically creates the obj file bearing the same name as the file. 
+
+Similarly, we do:
+$gcc -Wall -c math_func.c
+
+You should get main.o and math_func.o
+Now, you need to link the object files, that is done by linker.
+$ gcc -Wall main.o math_func.o -o myprogram
+Now, you get an exe called myprogram.
+
+Wanna see an example where linker fails? That's also there!
+Say you have main.c, math_func.h but not math_func.C (where you define the add fn)
+You will get this:
+..............................................
+main.c:(.text+0x18): undefined reference to `add'
+collect2.exe: error: ld returned 1 exit status
+..............................................
+
+Do check how a compiler works later on! I think I should be covering in this page itself.
+
+See how the errors throws something called ld, what is that?
+For performing the linking step, gcc uses linker ld which is a seperate program.
+in GNU systems, the GNU linker - GNU ld is used.
+Other systems may use GNU linker with GCC or may have their own lninkers.
+
+
+
+
+
+
 
 
 
