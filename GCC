@@ -106,7 +106,7 @@ Well if you don't use the func correctly, the system may produce incorrect resul
 
 2. Compiling multiple source files.
 
-I'll split my file into three files: hello.c, hello_func.c, and hello.j
+I'll split my file into three files: hello.c, hello_func.c, and hello.h
 
 ------------------------------
 //This is hello.c
