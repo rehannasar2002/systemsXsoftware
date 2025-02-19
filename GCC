@@ -106,6 +106,51 @@ Well if you don't use the func correctly, the system may produce incorrect resul
 
 2. Compiling multiple source files.
 
+I'll split my file into three files: hello.c, hello_func.c, and hello.j
+
+...........................
+//This is hello.c
+#include "hello.h"
+
+int main()
+{
+	hello("world");
+	return 0;
+}
+...........................
+//This is hello.h
+
+void hello(const char * name);
+...........................
+//This is hello_func.C
+
+#include <stdio.h>
+#include "hello.h"
+
+void hello(const char * name)
+{
+	printf("Hello, %s!", name);
+}
+...........................
+
+Compile all these using: 
+$ gcc -Wall hello.c hello_func.c -o newhello
+
+Why do we declare a function?
+We do that to ensure that the types of args and return value match correctly b/w function call and function declaration.
+
+What is the difference b/w #include<hello.h> and #include"hello.h"?
+<> will search for the header file in the system header files
+"" will search within the current directory first, then goes to the system directory
+
+Why don't I include hello.h in the cmd line?
+The directive #include "hello.h" in the src file instructs the compiler to include it automatically at approporiate locations
+
+2.1 Compiling files independently
+
+
+
+
 
 
 
