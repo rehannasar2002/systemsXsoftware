@@ -7,7 +7,7 @@ Hope you enjoy the read!
 ## RTOS Introduction
 
 What is real time application? </br>
-There's a myth saying that RT computing = fast computing. </br>
+There's a myth saying that RT computing = fast computing. 
 But in reality, it is nothing but predictable computing. </br>
 
 
