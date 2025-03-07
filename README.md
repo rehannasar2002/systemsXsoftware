@@ -13,7 +13,10 @@ This repository aims to cover the following topics: </br>
 7. Linux Kernel Driver Development
 8. Operating Systems - Linux Kernel
 
-### 
+I also aim to cover the following topics in the future as well:
+
+1. Microprocessors
+2. FreeRTOS 
 
 ### Acknowledgements:
 
