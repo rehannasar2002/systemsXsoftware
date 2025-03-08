@@ -34,7 +34,7 @@ There are numerous career options that generally encomapss the same fundamentals
 10. SoC Architecture
 11. Power and Performance 
 
-### Acknowledgements:
+### References: 
 
 Shivam Rawat (GPU Engineer, Qualcomm) 
 
