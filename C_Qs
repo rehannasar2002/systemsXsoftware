@@ -1,0 +1,253 @@
+Hi There!
+This page will just be focusing on compiler errors and optimization.
+This really gives you the flexibility to experiment and really know the what and how.
+Do check it out!
+
+.............................................
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void)
+{
+   int n;
+   for (n=7; n!=0; n--)
+      printf("n == %d", n--);
+   getchar();
+   return 0;
+}
+...........................................
+
+///////////////////////
+n == 7
+n == 5 .... infinite
+//////////////////////
+
+Reason: The decrement happens twice: so it skips evem numbers
+We put getchar() in console applications to prevent the window from closing immediately when running in environments like Windows Command Prompt.
+
+..........................................
+#include <stdio.h>
+
+int main(void)
+{
+   printf("%x", -1<<1);
+   getchar();
+   return 0;
+}
+........................................
+
+//////////////////////////////
+fffffffe
+/////////////////////////////
+
+Reason: This is dependent on the compiler, for 32-bit it is this, for 16 bit it is ffffe
+
+-1 is represented in 2s complement for 32-bit sys: 
+0xFFFFFFFF (binary: 11111111 11111111 11111111 11111111)
+Basically 00000000 00000000 00000000 00000001
+Now it becomes 11111111 11111111 11111111 11111110
+Now add 1, so it becomes 0xFFFFFFFF
+
+Coming back to the Q, -1 is left shifted by 0 one time
+So it becomes 11111111 11111111 11111111 11111110, which is 0xFFFFFFFE
+
+Also, %x is unsigned hex format.
+
+........................................
+#include <stdio.h>
+#define scanf "%s Geeks For Geeks"
+
+int main()
+{
+   printf(scanf, scanf);
+   getchar();
+   return 0;
+}
+........................................
+
+//////////////////////////
+%s Geeks For Geeks Geeks For Geeks
+//////////////////////////
+
+Reason: After preprocessing phase of compilation, printf becomes printf("%s Geeks For Geeks", "%s Geeks For Geeks");
+
+........................................
+#include <stdlib.h>
+#include <stdio.h>
+enum {false, true};
+
+int main()
+{
+   int i = 1;
+   do 
+   {
+      printf("%d\n", i);
+      i++;
+      if (i < 15)
+         continue;
+   } while (false);
+   getchar();
+   return 0;
+}
+........................................
+
+//////////////////////////////
+1
+/////////////////////////////
+
+Reason: So i becomes 2, then it enters the if condition. 
+enum declares false as 0 and true as 1
+In the if condition there is nothing after continue so it goes to while(false)
+since while(false) is 0, the loop is not repeating.
+
+.......................................
+#include <stdio.h>
+
+int* func()
+{
+   int num = 10;
+   return &num;
+}
+
+int main()
+{
+   int *ptr = NULL;
+   ptr = func();
+   printf("%d", *ptr);
+   return 0;
+}
+......................................
+
+///////////////////////////
+test.c: In function 'func':
+test.c:6:11: warning: function returns address of local variable [-Wreturn-local-addr]
+    6 |    return &num;
+      |           ^~~~
+///////////////////////////
+
+Reason: This is because the variable num is local to func(). So once the execution within func is complete, the variable get destroyed.
+So the pointer basically points to a deallocated memory (non-existent memory).
+This is called a dangling pointer. Do NOT return a local variable’s address (causes a dangling pointer).
+
+What you can do? 
+Create a static int variable (lives for the whole program)
+static int num = 10;
+
+Bonus section: Dynamic Memory allocation in C
+
+Dynamic memory allocation allows us to allocate memory at runtime rather than compile time. 
+This is useful when you don't know how much memory you'll need.
+
+Functions for Dynamic Memory allocation
+
+1. malloc(size_t size): Allocates 'size' bytes of memory and returns a pointer, memory is unitialized
+2. calloc(size_t num, size_t size): Allocates memory for 'num' elements, of 'size' bytes. Memory is initialized to 0
+3. realloc(void *ptr, size_t newSize): Resizes previously allocated memory (ptr), Can expand/shrink the block
+4. free(void *ptr): Frees dymamically allocated memory to avoid memory leaks
+
+----int *ptr = (int*)malloc(sizeof(int)); ------
+Lets break that statement one by one:
+malloc(sizeof(int) = malloc(4) - Allocates 4 bytes of memory on the heap.
+Returns void* (generic pointer), no specific type.
+Unless you free() it, heap memory persists.
+
+(int*) means convert the void* pointer to int* pointer
+Now it points to memory where we can store integer.
+
+int *ptr = (int*)malloc(sizeof(int));
+Memory address returned by malloc() is stored in ptr.
+Now ptr holds the address of the allocated memory block.
+
+What happens in memory?
+Assume ptr gets address 0x1000 from malloc()
+10 is stored in *ptr
+
+ptr stores 0x1000, pointing to dynamically allocated memory.
+*ptr access value storedat 0x1000
+
+1. Using malloc()
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() 
+{
+  int *ptr = int*(malloc(sizeof(int))); //allocates mem for 1 integer
+
+  if (ptr == NULL)
+  {
+    printf("Mem all failed!");
+    return 1;
+  }
+
+  *ptr = 10;
+  printf("Value: %d\n", *ptr);
+
+  free(ptr);
+  return 0;
+}
+
+2. Using calloc()
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+  int *arr = int*(calloc(5, sizeof(int));
+
+  if(arr == NULL)
+  {
+    printf("Mem allocation failed!");
+    return 1;
+  }
+
+  for (int i = 0; i < 5; i++)
+  {
+    printf("%d ", arr[i]);
+  }
+
+  free(arr);
+  return 0;
+}
+
+Diff b/w malloc() and calloc()
+
+Malloc:
+1. Memory init: NO (Contains garbage values)
+2. Syntax: ptr = int*(malloc(size));
+
+Calloc:
+1. Memory init: YES (all bytes set to o)
+2. Syntax: ptr = int*(calloc(count, size);
+
+malloc() vs calloc()? When to use these?
+int *arr = (int*)malloc(3 * sizeof(int));  // Allocate for 3 integers
+If you dont't need the memory to be initialised.
+If you want all elements to start from 0, then calloc() would be better
+
+3. Using realloc()
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+  int *arr = int*(
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
