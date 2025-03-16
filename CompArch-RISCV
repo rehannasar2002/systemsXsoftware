@@ -1,0 +1,11 @@
+Hi There!
+This page is dedicated to learning Computer Organization and Architecture.
+I'm following the RISC-V ISA, the book is from Henessey and Patterson. 
+Hope you enjoy the book!
+
+Chapter-1 Computer Abstractions and Technology:
+
+We'll be looking at some information on cost/performance/performance of computers. Some of the best designs strike the appropriate balance.
+Reliability and Scalability are also some other factors 
+What if we have a memory intensive application, a cache sensitive application and a compute sensitive application?
+A compute sensitive 
