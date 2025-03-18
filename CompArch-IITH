@@ -1,0 +1,77 @@
+Hi There, 
+We will begin the Computer Architecture Next Gen CA course 
+This is for your revision.
+
+Chapter-1: Introduction 
+CPU - Processor, Memory - RAM;Secondary storage, Input Device, Output Device
+Von Neumann Architecture
+
+Take the data from memory to CPU, perform the operation, and then write back to the memory
+Von Neumann Arch
+
+Secondary Memory -> Main Memory -> Cache Memory
+Most follow Von Neumann Arch
+
+Memory Unit: 
+Cache Memory - On chip memory
+32MB cache, multiple levels of cache with (max 64MB)
+
+Registers: Very fast memory unit
+
+Chip Designing:
+Transistor -> Combinational Circuit -> Gates are designed from transistors
+
+Moore's Lab - No of transistors in a chip double every 2 years
+Density also increases, chip becomes smaller
+
+Basic Layout of Computer:
+
+Computer: 1. CPU, 2. Memory, 3. I/O, 4. Interconnects
+
+CPU: Register, ALU, Control Unit, Internal CPU interconnect
+Add/Subtract/Compare: All done in ALU
+Before the operation, they need to be there in register
+From register it goes to ALU to perform the operation
+
+Self Study: CO & Design, Henesey 3rd edition 2005
+
+Memory: Cache Memory (part of CPU), Main Memory, Secondary Memory
+
+Operations of a computer: 
+
+1. Computer cannot do anything without giving instructions
+2. It is a set of commands a user is giving, computer is following the commands
+3. Assembly language depends on the ISA
+
+Memory operations:
+1. Data must be loaded from memory to registers before operation
+
+_______________
+   600         | r
+   300         | c
+   200         | b
+   100         | a
+_______________
+   12000 ,- base address
+
+asm (MIPS): r = a+b+c
+
+lw $2, 0($1) - 0+ 12000: go to 12000, fetch the value (100), store in register 2
+lw $3, 4($1) - 4 + 12000: 
+add $2, $2, $3 - Add the content of reg 2 and 3, store in 2
+lw $3, 8($1) - 8+12000: 
+add $2 $2 $3 - Add value 2 and 3, store in 2
+sw $2, 20($1) - 20+12000: 
+
+You also need to load the base address in the register
+Store the data from the register back to the main memory
+Even the set of instructions are also in memory
+
+PC- Program counter
+
+
+
+
+
+
+
