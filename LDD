@@ -4,3 +4,46 @@ I'll have this more theoretical and less of code.
 YT link: https://www.youtube.com/watch?v=iSiyDHobXHA
 Hope you enjoy the read!
 
+.c, .py and MakeFile are some of those tangible files that you'd be working on
+The c file will be the actual driver code, MakeFile will the compiler code, and py would be the application
+
+What's the relation b/w DD and app?
+You have the kernel, with many DD and one of our DD will be there.
+The user applications run at lower privilege and that is where the py file will be executed
+
+It will request the driver for some information and the driver would pass back that information
+
+Lecture-1: Linux Kernel
+Assume you have a system which has a CPU, DRAM, ROM, SSD
+What the kernel is?
+It provides a scheduler which manages processes
+It allows us to manage hardware
+
+Say you have a machine and you have connected a camera, you connect it via USB
+and fetch frames from the camera
+
+If you have the kernel running in the machine, it needs to know which camera is running
+It also needs to know the code which can manage the camera - this is called a driver
+
+We will manage hardware using Kernel Drivers 
+There is a USB port which also has to be managed which is a Kernel infra/driver...
+
+Where is the kernel stored?
+The kernel is stored as an image/files/bunch of files in the SSD
+The executable code needs to be loaded into the DRAM, so the Kernel needs to be loaded to the DRAM
+From the DRAM the CPU will execute, 
+The CPU can also reach out to the ROM and SSD
+
+The Qs here is, at what point does the linux kernel come from the SSD to the DRAM?
+What happens during power ON?
+
+The CPU goes to ROM, fetches the code and then executes
+What kind of code? The code specific to the system that the system maker has provided (Intel, AMD, etc.)
+ROM code turns ON other things
+
+ROM cannot be modified - hence it only has information which is necessary 
+
+
+
+
+
