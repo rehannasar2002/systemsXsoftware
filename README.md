@@ -11,7 +11,7 @@ This repository aims to cover the following topics: </br>
 5. Data Structres and Algorithms
 6. C Programming
 7. Linux Kernel Driver Development
-8. Operating Systems - Linux Kernel
+8. Operating Systems 
 
 I also aim to cover the following topics in the future as well:
 
