@@ -3,6 +3,8 @@ This page will just be focusing on compiler errors and optimization.
 This really gives you the flexibility to experiment and really know the what and how.
 Do check it out!
 
+Website: https://www.geeksforgeeks.org/c/output-of-a-program-set-1/
+
 .............................................
 #include <stdio.h>
 #include <stdlib.h>
